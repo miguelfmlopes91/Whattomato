@@ -4,13 +4,13 @@ package com.example.miguel.whattomato.ui.splash;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.example.miguel.whattomato.R;
-import com.example.miguel.whattomato.ui.base.BaseActivity;
-import com.example.miguel.whattomato.ui.main.MainActivity;
+import com.example.miguel.whattomato.ui.login.LoginActivity;
 
 
-public class SplashActivity extends BaseActivity {
+public class SplashActivity extends AppCompatActivity {
 
 
     protected boolean _active = true;
@@ -38,7 +38,7 @@ public class SplashActivity extends BaseActivity {
                 } finally {
 
                     startActivity(new Intent(SplashActivity.this,
-                            MainActivity.class));
+                            LoginActivity.class));
                     finish();
                 }
             }
