@@ -57,7 +57,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="8dp"
+            android:theme="@style/Theme.AppCompat">
 
             <EditText
                 android:id="@+id/input_password"
@@ -75,7 +76,8 @@
             android:layout_marginBottom="24dp"
             android:layout_marginTop="24dp"
             android:padding="12dp"
-            android:text="Create Account" />
+            android:text="Create Account"
+            android:theme="@style/Theme.AppCompat" />
 
         <TextView
             android:id="@+id/link_login"
