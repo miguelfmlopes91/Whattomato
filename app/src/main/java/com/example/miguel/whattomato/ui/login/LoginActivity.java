@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.miguel.whattomato.R;
+import com.example.miguel.whattomato.ui.main.MainActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,6 +22,7 @@ import butterknife.ButterKnife;
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
+    private static final int REQUEST_MAIN = -1;
 
     @BindView(R.id.input_email)
     EditText _emailText;
@@ -77,6 +79,10 @@ public class LoginActivity extends AppCompatActivity {
         String password = _passwordText.getText().toString();
 
         // TODO: Implement your own authentication logic here.
+        if(email.equalsIgnoreCase(email) && password.equalsIgnoreCase(password))
+        {
+
+        }
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
@@ -87,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                     }
                 }, 3000);
+
     }
 
 
@@ -110,6 +117,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onLoginSuccess() {
         _loginButton.setEnabled(true);
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivityForResult(intent, REQUEST_MAIN);
         finish();
     }
 
