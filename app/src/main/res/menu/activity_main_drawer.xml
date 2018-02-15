@@ -1,37 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/home"
+            android:icon="@android:drawable/ic_menu_call"
+            android:title="Home" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/timeTable"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:title="Time Table" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/examSchedule"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:title="Exam Schedule" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/attendence"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="Attendence" />
+        <item
+            android:id="@+id/result"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Results" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Social">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/fb"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="Faacebook" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/gplus"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:title="Google +" />
+            <item
+                android:id="@+id/twitter"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Twitter" />
+            <item
+                android:id="@+id/youtube"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Youtube" />
+            <item
+                android:id="@+id/github"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Github" />
         </menu>
     </item>
 

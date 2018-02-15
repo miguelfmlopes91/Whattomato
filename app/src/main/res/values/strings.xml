@@ -82,4 +82,10 @@
 
     <string name="action_settings">Settings</string>
 
+    <string-array name="semisters">
+        <item>Semister 1</item>
+        <item>Semister 2</item>
+        <item>Semister 3</item>
+    </string-array>
+
 </resources>
