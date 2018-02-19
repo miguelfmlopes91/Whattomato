@@ -1,18 +1,24 @@
 package com.example.miguel.whattomato.ui.login;
 
-import android.app.ProgressDialog;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.miguel.whattomato.R;
 import com.example.miguel.whattomato.ui.main.MainActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,7 +30,6 @@ import butterknife.ButterKnife;
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
     private static final int REQUEST_MAIN = -1;
-
     @BindView(R.id.input_name)
     EditText _nameText;
     @BindView(R.id.input_email)
@@ -35,12 +40,16 @@ public class SignupActivity extends AppCompatActivity {
     Button _signupButton;
     @BindView(R.id.link_login)
     TextView _loginLink;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
+    private FirebaseAuth auth;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         ButterKnife.bind(this);
+
 
         _signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,28 +78,27 @@ public class SignupActivity extends AppCompatActivity {
 
         _signupButton.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog(SignupActivity.this,
-                R.style.Theme_AppCompat_DayNight);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Creating Account...");
-        progressDialog.show();
-
         String name = _nameText.getText().toString();
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
 
-        // TODO: Implement your own signup logic here.
+        progressBar.setVisibility(View.VISIBLE);
+        //create user
+        auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Toast.makeText(SignupActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.GONE);
 
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onSignupSuccess or onSignupFailed
-                        // depending on success
-                        onSignupSuccess();
-                        // onSignupFailed();
-                        progressDialog.dismiss();
+                        if (!task.isSuccessful()) {
+                            onSignupFailed();
+                        } else {
+                            onSignupSuccess();
+                        }
                     }
-                }, 3000);
+                });
+
     }
 
 
@@ -110,7 +118,7 @@ public class SignupActivity extends AppCompatActivity {
 
     public boolean validate() {
         boolean valid = true;
-
+        auth = FirebaseAuth.getInstance();
         String name = _nameText.getText().toString();
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
@@ -136,6 +144,13 @@ public class SignupActivity extends AppCompatActivity {
             _passwordText.setError(null);
         }
 
+
         return valid;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        progressBar.setVisibility(View.GONE);
     }
 }

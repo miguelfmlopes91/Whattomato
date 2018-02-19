@@ -2,19 +2,25 @@
 
 package com.example.miguel.whattomato.ui.login;
 
-import android.app.ProgressDialog;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.miguel.whattomato.R;
 import com.example.miguel.whattomato.ui.main.MainActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,7 +29,6 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
     private static final int REQUEST_MAIN = -1;
-
     @BindView(R.id.input_email)
     EditText _emailText;
     @BindView(R.id.input_password)
@@ -32,11 +37,25 @@ public class LoginActivity extends AppCompatActivity {
     Button _loginButton;
     @BindView(R.id.link_signup)
     TextView _signupLink;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
+    private FirebaseAuth auth;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Get Firebase auth instance<
+        auth = FirebaseAuth.getInstance();
+
+        if (auth.getCurrentUser() != null) {
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
+        }
+
+        // set the view now
         setContentView(R.layout.activity_login);
+
         ButterKnife.bind(this);
 
         _loginButton.setOnClickListener(new View.OnClickListener() {
@@ -69,30 +88,24 @@ public class LoginActivity extends AppCompatActivity {
 
         _loginButton.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
-                R.style.Theme_AppCompat_DayNight);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Authenticating...");
-        progressDialog.show();
-
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
 
-        // TODO: Implement your own authentication logic here.
-        if(email.equalsIgnoreCase(email) && password.equalsIgnoreCase(password))
-        {
+        progressBar.setVisibility(View.VISIBLE);
 
-        }
+        auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        progressBar.setVisibility(View.GONE);
 
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onLoginSuccess or onLoginFailed
-                        onLoginSuccess();
-                        // onLoginFailed();
-                        progressDialog.dismiss();
+                        if (!task.isSuccessful()) {
+                            onLoginFailed();
+                        } else {
+                            onLoginSuccess();
+                        }
                     }
-                }, 3000);
+                });
 
     }
 
