@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "40336512794",
+    "firebase_url": "https://whattomato-3acab.firebaseio.com",
+    "project_id": "whattomato-3acab",
+    "storage_bucket": "whattomato-3acab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:40336512794:android:e55cff7c90a0a6a9",
+        "android_client_info": {
+          "package_name": "com.example.miguel.whattomato"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "40336512794-0s54fa4qh679rqmhm7tcak2v3dd7e266.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgCoMKqqO1qhSwfaDc4I4JGkIyXHC2bW4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

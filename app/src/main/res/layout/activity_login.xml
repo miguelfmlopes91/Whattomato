@@ -70,5 +70,13 @@
             android:text="No account yet? Create one"
             android:textSize="16dip" />
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center|bottom"
+            android:layout_marginBottom="20dp"
+            android:visibility="gone" />
     </LinearLayout>
+
 </ScrollView>
